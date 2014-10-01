@@ -10,9 +10,9 @@ var emitter = new EventEmitter();
 
 function handleClient(cli) {
   console.log('client connected');
-  client.push(cli);
+  clients.push(cli);
 
-  client.on('data', function(data) {
+  cli.on('data', function(data) {
     emitter.emit(data.id, data);
   });
 }
@@ -33,17 +33,20 @@ app.get('/', function(req, res) {
 });
 
 app.get('/api/process', function(req, res){
-  if(clients.size > 0) {
+
+  if(clients.length > 0) {
     var id = uuid.v4()
     var message = {
       id: id,
-      text: req.params.text
+      text: req.query.text
     }
-
+    console.log(message);
     emitter.once(id, function(data){
       res.json(data);
     });
-    clients[0].write(JSON.stringify(message));
+    var str = JSON.stringify(message)
+    var bytes = Buffer.byteLength(str, 'utf8');
+    clients[0].write(bytes + '\n' + str);
   } else {
     res.status(404).json({message: "No clients connected"});
   }

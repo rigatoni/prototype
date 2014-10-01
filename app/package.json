@@ -19,6 +19,7 @@
   "private": true,
   "dependencies": {
     "express": "~4.9.5",
-    "uuid": "~2.0.1"
+    "uuid": "~2.0.1",
+    "jade": "~1.7.0"
   }
 }

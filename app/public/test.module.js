@@ -6,9 +6,11 @@
   function TestController($scope, $http) {
     $scope.formData = {};
 
-    $http.get('/api/process', {params: $scope.formData})
+    $scope.submitForm = function() {
+      $http.get('/api/process?text=' + $scope.formData.text)
       .success(function(data){
         $scope.responseData = data;
       });
+    }
   }
 })();
