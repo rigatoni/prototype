@@ -18,6 +18,7 @@
   "homepage": "https://github.com/rigatoni/prototype",
   "private": true,
   "dependencies": {
-    "express": "~4.9.5"
+    "express": "~4.9.5",
+    "uuid": "~2.0.1"
   }
 }

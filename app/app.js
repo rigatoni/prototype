@@ -1,11 +1,11 @@
 var express = require('express');
 var app = express();
-var routes = require('./routes');
 var path = require('path');
 var net = require('net');
+var uuid = require('uuid');
 var EventEmitter = require('events').EventEmitter;
-var clients = [];
 
+var clients = [];
 var emitter = new EventEmitter();
 
 function handleClient(cli) {
@@ -28,7 +28,24 @@ app.set('view engine', 'jade');
 
 app.use(express.static(__dirname + '/public'));
 
-routes(app, express, emitter);
+app.get('/', function(req, res) {
+  res.render('index')
+});
+
+app.get('/api/process', function(req, res){
+  if(clients.size > 0) {
+    var id = uuid.v4()
+    var message = {
+      id: id,
+      text: req.params.text
+    }
+
+    emitter.once(id, function(data){
+      res.json(data);
+    });
+    clients[0].write(JSON.stringify(message));
+  }
+});
 
 app.use(function(req, res, next) {
   res.render('index');
@@ -45,8 +62,8 @@ var server = app.listen(3000, function() {
   console.log('Listening on port %d', server.address().port);
 });
 
-var server = net.createServer(handleClient);
+var tcpServer = net.createServer(handleClient);
 
-serv.listen(1234, function(){
+tcpServer.listen(1234, function(){
   console.log("Server listening on port 1234");
 });

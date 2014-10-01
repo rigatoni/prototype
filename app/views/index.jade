@@ -1,0 +1,12 @@
+doctype html
+html(lang="en")
+  head
+    title Polymer Blog
+    script(src='bower_components/angularjs/angular.min.js')
+    script(src='test.module.js')
+  body(ng-app="testapp")
+    div(ng-controller="TestController")
+      form(ng-submit="submitForm()")
+        input(ng-model="formData.text" placeholder="insert text")
+        button(type="submit") Submit
+      {{responseData | json}}
