@@ -44,6 +44,8 @@ app.get('/api/process', function(req, res){
       res.json(data);
     });
     clients[0].write(JSON.stringify(message));
+  } else {
+    res.status(404).json({message: "No clients connected"});
   }
 });
 
