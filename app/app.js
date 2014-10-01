@@ -13,7 +13,8 @@ function handleClient(cli) {
   clients.push(cli);
 
   cli.on('data', function(data) {
-    emitter.emit(data.id, data);
+    var msg = JSON.parse(data.toString());
+    emitter.emit(msg.id, msg);
   });
 }
 
@@ -40,7 +41,6 @@ app.get('/api/process', function(req, res){
       id: id,
       text: req.query.text
     }
-    console.log(message);
     emitter.once(id, function(data){
       res.json(data);
     });
