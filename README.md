@@ -1,6 +1,6 @@
 # Architecture Prototype
 
-This is a prototype of the planned architecture for our senior project
+This is a prototype of the planned architecture for our senior project.
 
 ## Technologies
 
@@ -10,3 +10,7 @@ This is a prototype of the planned architecture for our senior project
 
 ## Usage
 TODO
+
+## Things to consider
+
+* Multiple connections: Named?
