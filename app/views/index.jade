@@ -9,4 +9,4 @@ html(lang="en")
       form(ng-submit="submitForm()")
         input(ng-model="formData.text" placeholder="insert text")
         button(type="submit") Submit
-      {{responseData | json}}
+      pre {{responseData | json}}
